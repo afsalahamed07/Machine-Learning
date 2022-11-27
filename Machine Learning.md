@@ -315,3 +315,30 @@ w = w + \delta w \text{ and } b = b + \delta b
 $$
 
 Weight update is calculated based on all examples in the training dataset (instead of updating the parameters incrementally after each training example), which is why this approach is also referred to as **batch gradient descent**/**full batch gradient decent**.
+
+**Singel layer (NN)**
+```mermaid
+graph LR
+boxa[Input] --> boxb[Net Input] --> boxc[Activation]  --> boxd[Output] 
+```
+
+##### Hyperparameters
+The learning rate, $\eta$, as well as the number of epochs, are the so-called hyper-parameters (or tuning parameters) of the perceptron and Adaline learning algorithms.
+
+In practice, it often requires some experimentation to find a good learning rate, $\eta$ ,for optimal convergence.
+
+![[Drawing 2022-11-26 11.26.47.excalidraw]]
+
+#### Feature Scaling
+
+##### Standardisation
+Standardisation shifts the mean of each feature so that it is centered at zero and each feature has a standard deviation of 1 (unit variance)
+$$
+x_{j}' = \frac{x_j - \mu_{j}}{\sigma_j}
+$$
+$x_{j}'$ - Standardisation of the $j$th feature
+$x_j$ - vector consisting of the $j$th feature values
+$\mu_{j}$ - sample mean
+$\sigma_{j}$ - standard deviation
+
+![[Drawing 2022-11-26 12.40.33.excalidraw]]
