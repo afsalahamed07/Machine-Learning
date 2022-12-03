@@ -342,3 +342,116 @@ $\mu_{j}$ - sample mean
 $\sigma_{j}$ - standard deviation
 
 ![[Drawing 2022-11-26 12.40.33.excalidraw]]
+
+#### Stochastic Gradient Descent(SGD) / Iterative/Online Gradient Descent
+
+Instead of updating the weights based on the sum of the accumulated errors over all training examples, $x^{(i)}$:
+$$
+\delta w_{j} =\frac{2\eta}{n} \sum_{i} \left(y^{(i)} - \sigma \left(z^{(i)}\right) \right) x_{j}^{(i)}
+$$
+we **update the parameters incrementally for each training example**, for instance:
+$$
+\delta w_{j} = \eta \left(y^{(i)} - \sigma \left(z^{(i)}\right) \right)x^{(i)}_{j}
+$$
+$$
+\delta b = \eta \left(y^{(i)} - \sigma \left(z^{(i)}\right) \right)
+$$
+SGD typically reaches convergence much faster because of the more frequent weight updates.
+it is important to present training data in a random order; also, we want to shuffle the training dataset for every epoch to prevent cycles.
+
+###### Adjusting the learning rate during training
+
+In SGD implementations, the fixed learning rate, $\eta$ ,is often replaced by an adaptive learning rate that decreases over time, ex:
+$$
+\frac{c_{1}}{\text{[number of iterations] } + c_{2}}
+$$
+
+##### Online Learning
+Model is trained on the fly as new training data arrives.
+
+#### Mini-Batch Gradient Decent
+A compromise between full batch gradient descent and SGD is so-called mini-batch gradient descent.
+Mini-batch gradient descent can be understood as applying full batch gradient
+descent to smaller subsets of the training data.
+
+
+
+# 3. Machine Learning Classifiers Using Scikit-Learn
+
+### Overfitting
+Means that the model captures the patterns in the training data well but fails to generalize well to unseen data.
+
+## Logistic Regression
+
+> [Maths in Logistic Regression](https://www.youtube.com/watch?v=YMJtsYIp4kg)
+
+Logistic regression is a classification model that is very easy to implement and performs very well on linearly separable classes.
+
+logistic regression can be readily generalized to multiclass settings, which is
+known as **multinomial logistic regression, or softmax regression**.
+
+### Odds
+
+The odds in favor of a particular event.
+$$
+\frac{p}{1-p}
+$$
+$p$ - Probability of the positive event
+
+#### logit odds
+
+$$
+logit(p) = log\frac{p}{1-p}
+$$
+$log$ - natural logarithm
+$logit$ - function takes input values in the range 0 to 1 and transforms them into values over the entire real-number range
+
+we assume that there is a linear relationship between the weighted inputs and the log-odds: (logistic regression equation)
+$$
+logit(p) = w_1x_1 + ... + w_mx_m + b = \sum_{i=j}w_jx_j + b = w^tx + b
+$$
+
+#### Sigmoid function
+
+This inverse of the $logit$ function is typically called the **logistic sigmoid function**, which is sometimes simply abbreviated to **sigmoid function** due to its characteristic **S-shape**:
+
+$$
+\sigma(z) = \frac{1}{1 + e^{-z}}
+$$
+$z$ - net input
+
+> [Refer to logit transformation](https://www.youtube.com/watch?v=jiu0YuU0wgQ)
+
+![[Drawing 2022-11-28 11.29.07.excalidraw]]
+
+
+In logistic regression, this activation function simply becomes the sigmoid function.
+![[Drawing 2022-11-28 11.37.20.excalidraw]]
+
+The output of the sigmoid function is then interpreted as the probability of a particular example belonging to class 1,
+$$
+\sigma(z) = p(y=1 |x; w,b)
+$$
+
+So,
+![[Drawing 2022-11-28 11.45.36.excalidraw]]
+### Likelihood
+
+Assuming that the individual examples in our dataset are independent of one another
+![[Drawing 2022-11-28 21.52.14.excalidraw.svg]]
+In practice, it is easier to maximize the (natural) log of this equation, which is called the **log-likelihood function**
+
+![[Pasted image 20221128220101.png]]
+> Refer page 64 deriving likelihood function
+> [Refer Bernoulli variable](https://www.youtube.com/watch?v=mOkvzPkWBTc)
+
+
+Rewrite the log-likelihood as a loss function, L, that can be minimized using gradient descent 
+![[Pasted image 20221129134247.png]]
+
+The loss that we calculate for one single training example:
+![[Pasted image 20221129134353.png]]
+
+The First term becomes zero if $y = 0$, and the second term becomes zero if $y = 1$:
+![[Pasted image 20221129134512.png]]
+
